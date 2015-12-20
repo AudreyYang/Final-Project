@@ -8,7 +8,7 @@ html,body,div,ul,li,svg{
 html,body{
 	height: 100%;
 	position: relative;
-	background: rgb(242,244,233);
+	background: hsl(0,0%,90%);
 }
 
 .container{
@@ -30,18 +30,54 @@ html,body{
 /*-----------tooltip-----------*/
 .canvas .custom-tooltip{
     position:absolute;
-    border:1px solid red;
-    width:150px;
+    width:140px;
     min-height:10px;
-    padding:0px 10px;
+	font-size: 10px;
+	line-height: 1;
+	padding: 10px;
+	margin: 10px;
+	background: rgba(0, 0, 0, 0.6);
+	color: yellow;
+	border-radius: 2px;
 }
+
+
+
 
 /*------------font-------------*/
 body{
 	font-size: 16px;
 }
 h1{ font-size:2em;}
-h2{ font-size:1.1em;}
+h2{ font-size:0.9em;}
+h3{ font-size:0.6em;}
+h4{ font-size:1.2em;}
+h5{ font-size:0.4em;}
+
 p{ font-size: .9em;}
 
 /*------------svg--------------*/
+/*------------map-------------*/
+.room circle{
+	fill:rgba(180,180,180,.1);
+	stroke:rgb(80,80,80);
+	stroke-width:1px;
+}
+.room text{
+	fill:rgb(80,80,80);
+	font-size:10px;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke:rgba(180,180,180,.1);
+	shape-rendering: crispEdges;
+}
+.axis .tick text{
+	fill:rgb(80,80,80);
+	font-size:12px;
+
+#chart{
+	margin-top: 100px;
+}

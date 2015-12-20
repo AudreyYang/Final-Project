@@ -18,7 +18,7 @@ var bostonLngLat = [-71.088066,42.315520];
 var projection = d3.geo.mercator()
     .translate([width/2,height/2])
     .center(bostonLngLat)
-    .scale(100000);
+    .scale(80000);
 
 //path generator
 var path = d3.geo.path().projection(projection);
@@ -31,7 +31,7 @@ queue()
     .defer(d3.csv,"data/boston_listings_cleaned.csv",parseData)
     .await(function(err, neighbors,room_id) {
         draw(room_id,neighbors);
-       // console.log(neighbor)
+        // console.log(neighbor)
     })
 
 //paraData
@@ -52,12 +52,18 @@ function parseData(d){
 
 //draw the map
 function draw(room_id, neighbors) {
+    for(var i = 0; i < price.length; i++){
+
+        var colorRange = (parseInt(price[i]) / midPrice) * 40;
+        if(colorRange > 100){
+            colorRange = 100;
+        }
 
         var mapA = map.append('g')
             .append('path')
             .datum(neighbors)
             .attr('d',path)
-            .attr('fill','hsl(200,40%,' + '80%)')
+            .style('fill','gray')
             .style('stroke-width','1px')
             .style('stroke','white')
 
@@ -77,13 +83,17 @@ function draw(room_id, neighbors) {
                 //console.log('room_id')
                 return projection([d.x, d.y])[1]
             })
-            .style('fill-opacity',.2)
+            //.style('fill-opacity',.2)
+            .attr( "fill", function(d,i){
+                if(room_id[i].reviews == 0){
+                    return false;
+                }else{
+                    return d3.hsl('hsl(330, 100%,' + (colorRange / 1.5) + '%)'[i]);
+                }
+            } )
+        console.log(mapB)
 
-        //console.log(mapB)
+
+
+    }
 }
-            //console.log(geoid) //also fine here
-            //console.log(geoId)// fine here
-            //console.log(Income)
-
-            //return colorScale(Income)})
-        //.call(getTooltips)}

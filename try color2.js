@@ -1,3 +1,6 @@
+/**
+ * Created by audreyyang on 12/17/15.
+ */
 console.log("Airbnb");
 
 var margin = {t:50,r:100,b:50,l:50};
@@ -25,13 +28,17 @@ var path = d3.geo.path().projection(projection);
 
 var ShapeOfBoston = d3.map()
 
+//scales
+var scaleColor = d3.scale.linear().domain([40,500]).range(['white','red']);
+
+
 queue()
     //.defer(d3.json, "data/bos_neighborhoods.geojson")
     .defer(d3.json, "data/ma_towns.json")
     .defer(d3.csv,"data/boston_listings_cleaned.csv",parseData)
     .await(function(err, neighbors,room_id) {
         draw(room_id,neighbors);
-       // console.log(neighbor)
+        // console.log(neighbor)
     })
 
 //paraData
@@ -44,6 +51,8 @@ function parseData(d){
         rating:+d.overall_sa,
         accommodation:+d.accommodat,
         bedrooms:+d.bedrooms
+
+
     }
 
 
@@ -53,37 +62,47 @@ function parseData(d){
 //draw the map
 function draw(room_id, neighbors) {
 
-        var mapA = map.append('g')
-            .append('path')
-            .datum(neighbors)
-            .attr('d',path)
-            .attr('fill','hsl(200,40%,' + '80%)')
-            .style('stroke-width','1px')
-            .style('stroke','white')
+    var shape = map.append('g')
+        .append('path')
+        .datum(neighbors)
+        .attr('d',path)
+        .attr('fill','hsl(200,40%,' + '80%)')
+        .style('stroke-width','2px')
+        .style('stroke','white')
 
-        var mapB = map.append('g')
-            .selectAll('.room')
-            .data(room_id)
-            .enter()
-        mapB
-            .append('circle')
-            .attr('class','room')
-            .attr('r',2)
-            .attr('cx',function(d){
-                //console.log(projection([d.x, d.y])[0]);
-                return projection([d.x, d.y])[0]
-            })
-            .attr('cy',function(d){
-                //console.log('room_id')
-                return projection([d.x, d.y])[1]
-            })
-            .style('fill-opacity',.2)
+    var dots = map.append('g')
+        .selectAll('.room')
+        .data(room_id)
+        .enter()
+    dots
+        .append('circle')
+        .attr('class','room')
+        .attr('r',2)
+        .attr('cx',function(d){
+            //console.log(projection([d.x, d.y])[0]);
+            return projection([d.x, d.y])[0]
+        })
+        .attr('cy',function(d){
+            //console.log('room_id')
+            return projection([d.x, d.y])[1]
+        })
+        /*.style('fill',function(d){
+         var colorByprice = ShapeOfBoston.get(d.price);
+         console.log(colorByprice)// 4084 undified
+         return scaleColor(colorByprice)})*/
 
-        //console.log(mapB)
+
+
+         //console.log(ShapeOfBoston)
+         //console.log(d.price)
+        .style('fill',function(d){
+                 var colorByprice = d.price;
+            //console.log(colorByprice) works finally!
+        return scaleColor(colorByprice);})
+        .style('fill-opacity',.6)
+
+
 }
-            //console.log(geoid) //also fine here
-            //console.log(geoId)// fine here
-            //console.log(Income)
 
-            //return colorScale(Income)})
-        //.call(getTooltips)}
+
+

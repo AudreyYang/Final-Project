@@ -8,21 +8,27 @@
 	<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-<div class="container">
-	<!--<h1>Assignment 5</h1>-->
+<div class="container" id="container">
+	<h1>Airbnb Data Visualization in Boston</h1>
+	<h2>by Audrey(Yi) Yang, Suyuan Ji</h2>
+	<h3>ARTG5330 Visualization Technologies NEU 2015</h3>
+	<!--<h4>Room Distribution</h4>-->
+	<!--.container-->
 	<div class="canvas" id="map">
 		<div class="custom-tooltip">
-			<h2 id="type"></h2>
-			<p>name: <span id="name"></span></p>
-			<p>Income: <span id="income"></span></p>
-		</div>
-	</div>
-</div><!--.container-->
 
+			<p>Price per Night: <span id="price"></span></p>
+			<p>Reviews: <span id="review"></span></p>
+			<p>Bedrooms: <span id="bedrooms"></span></p>
+			<p>Roomtype: <span id="roomtype"></span></p>
+			<p>Accommodation: <span id="accommodation"></span></p>
+			<p>Average Star Rating: <span id="rating"></span></p>
+</div>
+</div>
 
 <!-- Scripts -->
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="queue/queue.min.js"></script>
-<script src="script.js"></script>
+<script src="before_final.js"></script>
 </body>
 </html>
