@@ -1,6 +1,4 @@
-/**
- * Created by audreyyang on 12/19/15.
- */
+
 console.log("Airbnb");
 
 var margin = {t:50,r:100,b:50,l:50};
